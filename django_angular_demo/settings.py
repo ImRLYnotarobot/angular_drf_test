@@ -167,7 +167,7 @@ if 'DATABASES' not in locals():
 
 # if 'DATABASE_URL' in os.environ:
 if 'CLEARDB_DATABASE_URL' in os.environ:
-    url = urlparse.urlparse(os.environ['CLEARDB_DATABASE_URL'])
+    url = urlparse(os.environ['CLEARDB_DATABASE_URL'])
 
     # Ensure default database exists.
     DATABASES['default'] = DATABASES.get('default', {})
