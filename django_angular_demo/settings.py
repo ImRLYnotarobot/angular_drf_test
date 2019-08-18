@@ -148,6 +148,14 @@ DATABASE_PASSWORD = ''
 DATABASE_HOST = ''
 DATABASE_PORT = ''
 
+# b95c50f069c40a
+# :
+# 8222cd06
+# @
+# us-cdbr-iron-east-02.cleardb.net
+# /
+# heroku_32f00e26ad3e052?reconnect=true
+
 
 try:
 
@@ -173,11 +181,13 @@ try:
             'PORT': url.port,
         })
 
+
         if url.scheme == 'mysql':
             DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 
 except Exception:
-    print('no CLEARDB_DATABASE_URL in environ')
+    print 'Unexpected error:', sys.exc_info()
+    # print('no CLEARDB_DATABASE_URL in locals')
 
 
 try:
