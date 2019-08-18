@@ -1,12 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>works</title>
-</head>
-<body>
-    <h1>ANGULAR DJANGO</h1>
-</body>
-</html>
+{% extends "app/base.html" %}
+{% load staticfiles %}
+ 
+{% block content %}
+  <p>Mini todo application</p>
+ 
+  <app-root>Loading the app...</app-root>
+ 
+  <script type="module" src="{% static 'angular-app/runtime-es2015.js' %}"></script>
+  <script type="module" src="{% static 'angular-app/polyfills-es2015.js' %}"></script>
+  <script type="module" src="{% static 'angular-app/styles-es2015.js' %}"></script>
+  <script type="module" src="{% static 'angular-app/vendor-es2015.js' %}"></script>
+  <script type="module" src="{% static 'angular-app/main-es2015.js' %}"></script>
+
+<!--   
+  <script src="runtime-es2015.js" type="module"></script>
+  <script src="runtime-es5.js" nomodule defer></script>
+
+  <script src="polyfills-es2015.js" type="module"></script>
+  <script src="polyfills-es5.js" nomodule defer></script>
+
+  <script src="styles-es2015.js" type="module"></script>
+  <script src="styles-es5.js" nomodule defer></script>
+
+  <script src="vendor-es2015.js" type="module"></script>
+  <script src="main-es2015.js" type="module"></script>
+
+  <script src="vendor-es5.js" nomodule defer></script>
+  <script src="main-es5.js" nomodule defer></script></body>
+ -->
+
+
+{% endblock %}
