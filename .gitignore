@@ -3,3 +3,5 @@
 *.sqlite3
 staticfiles
 *.log
+my.cnf
+local_conf/

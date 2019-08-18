@@ -28,6 +28,7 @@ export class UserService {
   public login(user) {
     this.http.post('/api-token-auth/', JSON.stringify(user), this.httpOptions).subscribe(
       data => {
+        console.log(data)
         this.updateData(data['token']);
       },
       err => {
@@ -55,6 +56,7 @@ export class UserService {
   }
  
   private updateData(token) {
+    console.log('Token: ' + token);
     this.token = token;
     this.errors = [];
  
