@@ -157,37 +157,36 @@ DATABASE_PORT = ''
 # heroku_32f00e26ad3e052?reconnect=true
 
 
-try:
+# try:
 
-    # Check to make sure DATABASES is set in settings.py file.
-    # If not default to {}
+# Check to make sure DATABASES is set in settings.py file.
+# If not default to {}
 
-    if 'DATABASES' not in locals():
-        DATABASES = {}
+if 'DATABASES' not in locals():
+    DATABASES = {}
 
-    # if 'DATABASE_URL' in os.environ:
-    if 'CLEARDB_DATABASE_URL' in os.environ:
-        url = urlparse.urlparse(os.environ['CLEARDB_DATABASE_URL'])
+# if 'DATABASE_URL' in os.environ:
+if 'CLEARDB_DATABASE_URL' in os.environ:
+    url = urlparse.urlparse(os.environ['CLEARDB_DATABASE_URL'])
 
-        # Ensure default database exists.
-        DATABASES['default'] = DATABASES.get('default', {})
+    # Ensure default database exists.
+    DATABASES['default'] = DATABASES.get('default', {})
 
-        # Update with environment configuration.
-        DATABASES['default'].update({
-            'NAME': url.path[1:],
-            'USER': url.username,
-            'PASSWORD': url.password,
-            'HOST': url.hostname,
-            'PORT': url.port,
-        })
+    # Update with environment configuration.
+    DATABASES['default'].update({
+        'NAME': url.path[1:],
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port,
+    })
 
+    if url.scheme == 'mysql':
+        DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 
-        if url.scheme == 'mysql':
-            DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
-
-except Exception:
-    print('Unexpected error:', sys.exc_info())
-    # print('no CLEARDB_DATABASE_URL in locals')
+# except Exception:
+#     print('Unexpected error:', sys.exc_info())
+#     # print('no CLEARDB_DATABASE_URL in locals')
 
 
 try:
