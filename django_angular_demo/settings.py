@@ -199,7 +199,7 @@ if 'DATABASES' not in locals():
 # except ImportError:
 #     pass
 
-db_from_env = dj_database_url.config()
+db_from_env = dj_database_url.config(env='CLEARDB_DATABASE_URL')
 DATABASES['default'].update(db_from_env)
 
 print(DATABASES)
