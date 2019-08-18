@@ -5,6 +5,8 @@ import os
 
 from urllib.parse import urlparse
 
+import dj_database_url
+
 import datetime
 
 
@@ -165,31 +167,35 @@ DATABASE_PORT = ''
 if 'DATABASES' not in locals():
     DATABASES = {}
 
-# if 'DATABASE_URL' in os.environ:
-if 'CLEARDB_DATABASE_URL' in os.environ:
-    url = urlparse(os.environ['CLEARDB_DATABASE_URL'])
+# # if 'DATABASE_URL' in os.environ:
+# if 'CLEARDB_DATABASE_URL' in os.environ:
+#     url = urlparse(os.environ['CLEARDB_DATABASE_URL'])
 
-    # Ensure default database exists.
-    DATABASES['default'] = DATABASES.get('default', {})
+#     # Ensure default database exists.
+#     DATABASES['default'] = DATABASES.get('default', {})
 
-    # Update with environment configuration.
-    DATABASES['default'].update({
-        'NAME': url.path[1:],
-        'USER': url.username,
-        'PASSWORD': url.password,
-        'HOST': url.hostname,
-        'PORT': url.port,
-    })
+#     # Update with environment configuration.
+#     DATABASES['default'].update({
+#         'NAME': url.path[1:],
+#         'USER': url.username,
+#         'PASSWORD': url.password,
+#         'HOST': url.hostname,
+#         'PORT': url.port,
+#     })
 
-    if url.scheme == 'mysql':
-        DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
+#     if url.scheme == 'mysql':
+#         DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 
 # except Exception:
 #     print('Unexpected error:', sys.exc_info())
 #     # print('no CLEARDB_DATABASE_URL in locals')
 
-
 try:
     from .local_conf.localdb import *
 except ImportError:
     pass
+
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
+print(DATABASES)
