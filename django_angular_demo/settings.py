@@ -143,12 +143,16 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-DATABASE_ENGINE = ''
-DATABASE_NAME = ''
-DATABASE_USER = ''
-DATABASE_PASSWORD = ''
-DATABASE_HOST = ''
-DATABASE_PORT = ''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'angular_django_proj',
+        'USER': 'my_user',
+        'PASSWORD': 'my_user_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 
 # b95c50f069c40a
 # :
@@ -190,10 +194,10 @@ if 'DATABASES' not in locals():
 #     print('Unexpected error:', sys.exc_info())
 #     # print('no CLEARDB_DATABASE_URL in locals')
 
-try:
-    from .local_conf.localdb import *
-except ImportError:
-    pass
+# try:
+#     from .local_conf.localdb import *
+# except ImportError:
+#     pass
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
