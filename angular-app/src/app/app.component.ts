@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {throwError} from 'rxjs';
 import { AuthService } from './login/auth.service';
 import { Router } from '@angular/router';
-import { TodoService } from './todos/todo.service';
 // import { HttpClient } from '@angular/common/http';
  
 @Component({
@@ -29,4 +27,3 @@ export class AppComponent implements OnInit {
   }
  
 }
-

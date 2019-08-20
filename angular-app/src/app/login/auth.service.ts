@@ -55,10 +55,6 @@ export class AuthService {
         );
     }
 
-    public refreshToken() {
-        console.log('refreshtoken');
-    }
-
     public logout() {
         this.token = null;
         this.refresh_token = null;
