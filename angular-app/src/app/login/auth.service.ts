@@ -7,14 +7,14 @@ export class AuthService {
     private httpOptions: any;
 
     private get_token_url: string = '/o/token/';
-    // private get_token_url: string = '/test/';
-    private client_id: string = 'jvC2UqXr4b4QnXzjw0mGMrF3PglBwAr2kNY0BkYB';
-    private client_secret: string = 'IlmsafogCQlNFTNZGqGmkEKLF2hJChkp1QtGeOPceZR1WytuGcFnH8yy5mh4yb6SPK4H0xvpPg2OyXuHHQ4FsWQqDeeHAhdPClRPjV54YjQkHq96RQGaGmUsjXK4HKAm';
+    private client_id: string = '7UdsPUDKXJX46Bhe1OM2cPXflAsqYXvVcMKKIoBG';
+    // private client_id: string = 'jvC2UqXr4b4QnXzjw0mGMrF3PglBwAr2kNY0BkYB';
+    private client_secret: string = 'm33LQhdVyCqaOFNT2xCysYh3lx5J1TMisBFXPAPbq4aiNLd09UAi9z2c9ewus3zs46HGLwmiOHzkCjMA4XbD2igytZLdAACyrBJ0WsVix2jv4A7cPAblkksTwY5Z7fD6';
+    // private client_secret: string = 'IlmsafogCQlNFTNZGqGmkEKLF2hJChkp1QtGeOPceZR1WytuGcFnH8yy5mh4yb6SPK4H0xvpPg2OyXuHHQ4FsWQqDeeHAhdPClRPjV54YjQkHq96RQGaGmUsjXK4HKAm';
 
     public user_service_url = '/accounts/register/';
 
     public token: string;
-    // public token_expires: Date;
     public token_type: string;
     public refresh_token: string;
     public username: string;
@@ -50,7 +50,6 @@ export class AuthService {
                 }
             },
             err => {
-                // this.errors = err['error'];
                 this.error = err.error.error_description;
             }
         );

@@ -18,18 +18,14 @@ export class AppComponent implements OnInit {
     private router: Router,
     // private todos: TodoService
   ) {
-    console.log('hello');
     if (!this._auth.token) {
       router.navigate(['/login/']);
     } else {
       this.router.navigate(['/todo/']);
-      // this.todos.set_headers();
-      // this.todo_list = this.todos.get_todos();
     }
   }
  
   ngOnInit() {
-    console.log('hello from init');
   }
  
 }
