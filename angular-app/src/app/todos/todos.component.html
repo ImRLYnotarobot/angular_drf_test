@@ -1,0 +1,34 @@
+<div class="container">
+
+    <label>Title:<input class="form-control" #todo_title required></label>
+    <label>Todo:<input #todo_body /></label>
+    <button (click)="add_todo(todo_title.value, todo_body.value);
+        todo_body.value=''; todo_title.value='';">
+        add
+    </button>
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="card-deck">
+                <div class="card mb-4" style="min-width: 18rem; max-width: 18rem;" *ngFor="let todo of todo_list">
+                    <div class="card-body">
+                        <h5 class="card-title" *ngIf="todo!==edit_todo">{{todo.title}}</h5>
+                        <input *ngIf="todo===edit_todo" [(ngModel)]="todo.title" (blur)="update_todo()"
+                            (keyup.enter)="update_todo()">
+
+                        <h6 class="card-subtitle mb-2 text-muted" *ngIf="todo!==edit_todo">{{todo.date | date: "short"}}
+                        </h6>
+                        <p class="card-text" *ngIf="todo!==edit_todo">{{todo.body}}</p>
+                        <input *ngIf="todo===edit_todo" [(ngModel)]="todo.body" (blur)="update_todo()"
+                            (keyup.enter)="update_todo()">
+
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary" (click)="edit(todo)">Edit</button>
+                            <button type="button" class="btn btn-secondary" (click)="delete_todo(todo)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

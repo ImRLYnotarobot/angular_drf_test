@@ -1,0 +1,38 @@
+<h2>Register</h2>
+
+<div class="row" *ngIf="!_auth.token">
+
+    <div class="col-sm-4">
+        <label>Username:</label><br />
+        <input type="text" name="register-username" [(ngModel)]="register_user.username">
+        <span *ngFor="let error of errors.username"><br /> {{ error }}</span>
+    </div>
+
+    <div class="col-sm-4">
+            <label>Email:</label><br />
+            <input type="text" name="register-email" [(ngModel)]="register_user.email">
+            <span *ngFor="let error of errors.email"><br /> {{ error }}</span>
+        </div>
+
+    <div class="col-sm-4">
+        <label>Password:</label><br />
+        <input type="password" name="register-password" [(ngModel)]="register_user.password">
+    </div>
+
+    <div class="col-sm-4">
+        <label>Repeat password:</label><br />
+        <input type="password" name="register-password2" [(ngModel)]="register_user.password2">
+        <span *ngIf="pass_err">{{ pass_err }}</span>
+    </div>
+
+    <div class="col-sm-4">
+        <button (click)="register()" class="btn btn-primary">Register</button>
+    </div>
+
+    <div class="col-sm-12">
+        <span *ngFor="let error of errors.non_field_errors">{{ error }}<br /></span>
+    </div>
+
+    <a routerLink="/login">Login</a>
+
+</div>

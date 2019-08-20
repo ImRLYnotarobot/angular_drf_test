@@ -40,11 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'oauth2_provider',
 
     'app',
+    'accounts',
 
     'angular-app',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'oauth2_provider.backends.OAuth2Backend',
+    'django.contrib.auth.backends.ModelBackend'
+)
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -52,7 +59,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
+
+    # 'corsheaders.middleware.CorsMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+ 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -99,20 +110,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
-
-# JWT_AUTH = {
-#     'JWT_ALLOW_REFRESH': True,
-#     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
-# }
 
 
 # Internationalization
@@ -127,10 +131,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
 
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -154,53 +154,18 @@ DATABASES = {
     }
 }
 
-# b95c50f069c40a
-# :
-# 8222cd06
-# @
-# us-cdbr-iron-east-02.cleardb.net
-# /
-# heroku_32f00e26ad3e052?reconnect=true
-
-
-# try:
-
-# Check to make sure DATABASES is set in settings.py file.
-# If not default to {}
 
 if 'DATABASES' not in locals():
     DATABASES = {}
 
-# # if 'DATABASE_URL' in os.environ:
-# if 'CLEARDB_DATABASE_URL' in os.environ:
-#     url = urlparse(os.environ['CLEARDB_DATABASE_URL'])
-
-#     # Ensure default database exists.
-#     DATABASES['default'] = DATABASES.get('default', {})
-
-#     # Update with environment configuration.
-#     DATABASES['default'].update({
-#         'NAME': url.path[1:],
-#         'USER': url.username,
-#         'PASSWORD': url.password,
-#         'HOST': url.hostname,
-#         'PORT': url.port,
-#     })
-
-#     if url.scheme == 'mysql':
-#         DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
-
-# except Exception:
-#     print('Unexpected error:', sys.exc_info())
-#     # print('no CLEARDB_DATABASE_URL in locals')
-
-# try:
-#     from .local_conf.localdb import *
-# except ImportError:
-#     pass
-
-# db_from_env = dj_database_url.config(env='CLEARDB_DATABASE_URL')
 db_from_env = dj_database_url.config(env='JAWSDB_URL')
 DATABASES['default'].update(db_from_env)
 
-print(DATABASES)
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+
+# CORS_ORIGIN_ALLOW_ALL = True
+
+LOGIN_URL = '/accounts/login/'

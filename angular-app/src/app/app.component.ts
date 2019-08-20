@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from './user.service';
 import {throwError} from 'rxjs';
+import { AuthService } from './login/auth.service';
+import { Router } from '@angular/router';
+import { TodoService } from './todos/todo.service';
 // import { HttpClient } from '@angular/common/http';
  
 @Component({
@@ -9,46 +11,26 @@ import {throwError} from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
- 
-  /**
-   * An object representing the user for the login form
-   */
-  public user: any;
 
-  userName: string = "";
-  response: any;
  
   constructor(
-    private _userService: UserService,
-    // private http: HttpClient
-  ) { }
+    public _auth: AuthService,
+    private router: Router,
+    // private todos: TodoService
+  ) {
+    console.log('hello');
+    if (!this._auth.token) {
+      router.navigate(['/login/']);
+    } else {
+      this.router.navigate(['/todo/']);
+      // this.todos.set_headers();
+      // this.todo_list = this.todos.get_todos();
+    }
+  }
  
   ngOnInit() {
-    this.user = {
-      username: '',
-      password: ''
-    };
+    console.log('hello from init');
   }
- 
-  login() {
-    this._userService.login({'username': this.user.username, 'password': this.user.password});
-  }
- 
-  refreshToken() {
-    this._userService.refreshToken();
-  }
- 
-  logout() {
-    this._userService.logout();
-  }
-
-  // search() {
-  //   this.http.get('https://api.github.com/users/' + this.userName)
-  //   .subscribe((response)=>{
-  //     this.response = response;
-  //     console.log(this.response);
-  //   })
-  // }
  
 }
 
